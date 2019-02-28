@@ -3,5 +3,5 @@ module.exports = {
     port: 9999,
     open: true
   },
-  publicPath: "/neon-maze/"
+  publicPath: "/"
 };
