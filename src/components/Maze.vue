@@ -18,15 +18,26 @@ export default {
     size: Number,
     position: Array
   },
+  data: function() {
+    return {
+      displaySize: 9
+    };
+  },
   computed: {
     mazeArr() {
       const arr = [];
+      const [posX, posY] = this.position;
 
-      this.maze.forEach(row => {
-        row.forEach(({ bottom, left, right, top, x, y }) => {
+      const normalizedX = this.normalizePosition(posX);
+      const normalizedY = this.normalizePosition(posY);
+
+      for (let y = normalizedY; y < normalizedY + this.displaySize; y++) {
+        for (let x = normalizedX; x < normalizedX + this.displaySize; x++) {
+          const { bottom, left, right, top } = this.maze[y][x];
+
           arr.push({ bottom, left, right, top, x, y });
-        });
-      });
+        }
+      }
 
       return arr;
     }
@@ -46,25 +57,35 @@ export default {
       return style;
     },
     getSelectedStyle: function({ x, y }) {
+      const selected = this.position[0] === x && this.position[1] === y;
+
       return {
-        backgroundColor:
-          this.position[0] === x && this.position[1] === y ? "white" : "black",
+        backgroundColor: selected ? "white" : "black",
         width: "50%",
-        height: "50%"
+        height: "50%",
+        borderRadius: "50%"
       };
+    },
+    normalizePosition: function(pos) {
+      if (pos < this.displaySize / 2) return 0;
+      if (pos > this.size - this.displaySize / 2)
+        return this.size - this.displaySize;
+
+      return pos - Math.round(this.displaySize / 2) + 1;
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
+$noOfColumns: 9;
 $wrapperWidth: 100vw;
-$rowHeight: calc(#{$wrapperWidth} / var(--noOfColumns));
+$rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
 
 .grid {
   width: $wrapperWidth;
   display: grid;
-  grid-template-columns: repeat(var(--noOfColumns), 1fr);
+  grid-template-columns: repeat($noOfColumns, 1fr);
   grid-auto-rows: $rowHeight;
   margin-top: 20px;
   margin-left: auto;
@@ -93,7 +114,7 @@ $rowHeight: calc(#{$wrapperWidth} / var(--noOfColumns));
 
 @media (min-width: 600px) {
   $wrapperWidth: 600px;
-  $rowHeight: calc(#{$wrapperWidth} / var(--noOfColumns));
+  $rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
 
   .grid {
     width: $wrapperWidth;

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="cssProps">
+  <div id="app">
     <h1>Neon Maze</h1>
     <span class="input-container">
       <label>
@@ -8,7 +8,9 @@
       </label>
       <button @click="buildNewMaze">New Maze</button>
     </span>
-    <Maze :maze="maze" :size="parseInt(size)" :position="position" />
+    <div v-hammer:swipe="handleMove">
+      <Maze :maze="maze" :size="parseInt(size)" :position="position" />
+    </div>
     <p>Created by <a href="https://github.com/ztoben">ztoben</a>.</p>
   </div>
 </template>
@@ -32,33 +34,23 @@ export default {
     const context = this;
 
     window.addEventListener("keydown", function({ key }) {
-      const [x, y] = context.position;
-      const position = [x, y];
-
       if (key === "ArrowDown") {
-        if (!context.maze[y][x].bottom) position[1] += 1;
+        context.move("down");
       }
       if (key === "ArrowUp") {
-        if (!context.maze[y][x].top) position[1] -= 1;
+        context.move("up");
       }
       if (key === "ArrowRight") {
-        if (!context.maze[y][x].right) position[0] += 1;
+        context.move("right");
       }
       if (key === "ArrowLeft") {
-        if (!context.maze[y][x].left) position[0] -= 1;
+        context.move("left");
       }
-
-      context.position = position;
     });
   },
   computed: {
     maze() {
       return generateMaze(this.size);
-    },
-    cssProps() {
-      return {
-        "--noOfColumns": this.size
-      };
     }
   },
   watch: {
@@ -70,6 +62,38 @@ export default {
     buildNewMaze() {
       this.size += 1;
       this.size -= 1;
+    },
+    move(direction) {
+      const [x, y] = this.position;
+      const position = [x, y];
+
+      switch (direction) {
+        case "down":
+          if (!this.maze[y][x].bottom) position[1] += 1;
+          break;
+        case "up":
+          if (!this.maze[y][x].top) position[1] -= 1;
+          break;
+        case "right":
+          if (!this.maze[y][x].right) position[0] += 1;
+          break;
+        case "left":
+          if (!this.maze[y][x].left) position[0] -= 1;
+          break;
+      }
+
+      this.position = position;
+    },
+    handleMove({ direction }) {
+      const DIRECTION_LEFT = 2;
+      const DIRECTION_RIGHT = 4;
+      const DIRECTION_UP = 8;
+      const DIRECTION_DOWN = 16;
+
+      if (direction === DIRECTION_LEFT) this.move("left");
+      if (direction === DIRECTION_RIGHT) this.move("right");
+      if (direction === DIRECTION_UP) this.move("up");
+      if (direction === DIRECTION_DOWN) this.move("down");
     }
   }
 };

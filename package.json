@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "generate-maze": "0.2.0",
-    "vue": "^2.6.6"
+    "vue": "^2.6.6",
+    "vue2-hammer": "2.1.2",
+    "vue2-touch-events": "1.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
