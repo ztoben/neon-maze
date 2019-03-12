@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <h1>Neon Maze</h1>
-    <span class="input-container">
-      <label>
-        Size:
-        <input v-model="size" type="number" min="10" max="100" />
-      </label>
-      <button @click="buildNewMaze">New Maze</button>
-    </span>
+    <div class="input-container">
+      <div class="new-maze-background" @click="buildNewMaze">
+        <div class="new-maze">
+          <h4>New Maze</h4>
+        </div>
+      </div>
+    </div>
     <div v-hammer:swipe="handleMove">
       <Maze :maze="maze" :size="parseInt(size)" :position="position" />
     </div>
@@ -129,6 +129,40 @@ body {
 
     & > * {
       margin: 5px;
+    }
+
+    .new-maze-background {
+      background: linear-gradient(
+        to right,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        violet
+      );
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      cursor: pointer;
+      position: relative;
+
+      .new-maze {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 4px);
+        height: 46px;
+        background-color: black;
+
+        h4 {
+          color: white;
+          margin: 0;
+        }
+      }
     }
   }
 }

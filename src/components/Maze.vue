@@ -56,14 +56,20 @@ export default {
 
       return style;
     },
-    getSelectedStyle: function({ x, y }) {
+    getSelectedStyle: function({ bottom, left, right, top, x, y }) {
       const selected = this.position[0] === x && this.position[1] === y;
 
       return {
         backgroundColor: selected ? "white" : "black",
-        width: "50%",
-        height: "50%",
-        borderRadius: "50%"
+        width: "5vw",
+        maxWidth: "35px",
+        height: "5vw",
+        maxHeight: "35px",
+        borderRadius: "50%",
+        marginBottom: top ? "1px" : 0,
+        marginLeft: right ? "1px" : 0,
+        marginRight: left ? "1px" : 0,
+        marginTop: bottom ? "1px" : 0
       };
     },
     normalizePosition: function(pos) {
