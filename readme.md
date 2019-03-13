@@ -13,9 +13,10 @@ View the live version [here](https://neon-maze.netlify.com/).
 - [x] Swipe gestures
 - [x] Only show a windowed portion of the screen
 - [x] Generate a new maze on maze completion
-- [ ] Add a level timer and moves counter
-- [ ] Zoom to full maze on press and hold
+- [x] Add a solved maze score counter
+- [x] Double tap to toggle full maze
 - [x] Make a PWA
+- [ ] Add an instructions page on first load
 
 Icon made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by 

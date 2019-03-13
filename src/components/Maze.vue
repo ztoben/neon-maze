@@ -16,12 +16,8 @@ export default {
   props: {
     maze: Array,
     size: Number,
-    position: Array
-  },
-  data: function() {
-    return {
-      displaySize: 9
-    };
+    position: Array,
+    displaySize: Number
   },
   computed: {
     mazeArr() {
@@ -63,10 +59,10 @@ export default {
 
       return {
         backgroundColor: selected ? "white" : "black",
-        width: "5vw",
-        maxWidth: "35px",
-        height: "5vw",
-        maxHeight: "35px",
+        width: this.displaySize === 9 ? "5vw" : "1vw",
+        maxWidth: this.displaySize === 9 ? "35px" : "10px",
+        height: this.displaySize === 9 ? "5vw" : "1vw",
+        maxHeight: this.displaySize === 9 ? "35px" : "10px",
         borderRadius: "50%",
         marginBottom: top ? "1px" : 0,
         marginLeft: right ? "1px" : 0,
@@ -86,7 +82,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$noOfColumns: 9;
+$noOfColumns: var(--noOfColumns);
 $wrapperWidth: calc(100vw - 10px);
 $rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
 

@@ -11,8 +11,14 @@
         </div>
       </div>
     </div>
-    <div v-hammer:swipe="handleMove">
-      <Maze :maze="maze" :size="parseInt(size)" :position="position" />
+    <div v-hammer:swipe="handleMove" @dblclick="handleToggleZoom">
+      <Maze
+        :style="cssProps"
+        :maze="maze"
+        :size="parseInt(size)"
+        :position="position"
+        :display-size="currentDisplaySize"
+      />
     </div>
     <p class="footer">
       Created by <a href="https://github.com/ztoben">ztoben</a>.
@@ -33,7 +39,9 @@ export default {
     return {
       size: 25,
       position: [0, 0],
-      solved: 0
+      solved: 0,
+      currentDisplaySize: 9,
+      minDisplaySize: 9
     };
   },
   mounted: function() {
@@ -57,6 +65,11 @@ export default {
   computed: {
     maze() {
       return generateMaze(this.size);
+    },
+    cssProps() {
+      return {
+        "--noOfColumns": this.currentDisplaySize
+      };
     }
   },
   watch: {
@@ -108,6 +121,13 @@ export default {
       if (direction === DIRECTION_RIGHT) this.move("right");
       if (direction === DIRECTION_UP) this.move("up");
       if (direction === DIRECTION_DOWN) this.move("down");
+    },
+    handleToggleZoom() {
+      if (this.currentDisplaySize === this.minDisplaySize) {
+        this.currentDisplaySize = this.size;
+      } else {
+        this.currentDisplaySize = this.minDisplaySize;
+      }
     }
   }
 };
