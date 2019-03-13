@@ -10,12 +10,12 @@ _A game featuring random maze generation and colorful visuals_
 View the live version [here](https://neon-maze.netlify.com/).
 
 #### Todo
--[ ] Swipe gestures
--[ ] Only show a windowed portion of the screen
--[ ] Generate a new maze on maze completion
--[ ] Add a level timer and moves counter
--[ ] Zoom to full maze on press and hold
--[ ] Make a PWA
+- [ ] Swipe gestures
+- [ ] Only show a windowed portion of the screen
+- [ ] Generate a new maze on maze completion
+- [ ] Add a level timer and moves counter
+- [ ] Zoom to full maze on press and hold
+- [ ] Make a PWA
 
 Icon made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
 from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by 
