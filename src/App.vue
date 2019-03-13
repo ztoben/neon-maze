@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Neon Maze</h1>
+    <h1 class="header">Neon Maze</h1>
     <div class="input-container">
       <div class="new-maze-background" @click="buildNewMaze">
         <div class="new-maze">
@@ -11,7 +11,9 @@
     <div v-hammer:swipe="handleMove">
       <Maze :maze="maze" :size="parseInt(size)" :position="position" />
     </div>
-    <p>Created by <a href="https://github.com/ztoben">ztoben</a>.</p>
+    <p class="footer">
+      Created by <a href="https://github.com/ztoben">ztoben</a>.
+    </p>
   </div>
 </template>
 
@@ -164,6 +166,16 @@ body {
         }
       }
     }
+  }
+
+  .header {
+    font-size: 1.5em;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
   }
 }
 </style>

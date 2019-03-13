@@ -85,7 +85,7 @@ export default {
 
 <style scoped lang="scss">
 $noOfColumns: 9;
-$wrapperWidth: 100vw;
+$wrapperWidth: calc(100vw - 10px);
 $rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
 
 .grid {
@@ -93,9 +93,7 @@ $rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
   display: grid;
   grid-template-columns: repeat($noOfColumns, 1fr);
   grid-auto-rows: $rowHeight;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 5px;
   outline: none;
   background: linear-gradient(
     to right,
@@ -125,6 +123,8 @@ $rowHeight: calc(#{$wrapperWidth} / #{$noOfColumns});
   .grid {
     width: $wrapperWidth;
     grid-auto-rows: $rowHeight;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 </style>
