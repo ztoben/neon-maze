@@ -51,8 +51,10 @@ export default {
         marginTop: top ? "1px" : 0
       };
 
-      if (x === 0 && y === 0) style.marginTop = 0;
-      if (x === this.size - 1 && y === this.size - 1) style.marginBottom = 0;
+      if (x === this.size - 1 && y === this.size - 1) {
+        style.backgroundColor = "white";
+        style.border = "5px solid black";
+      }
 
       return style;
     },

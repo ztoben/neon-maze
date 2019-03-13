@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <h1 class="header">Neon Maze</h1>
     <div class="input-container">
+      <div class="header-container">
+        <h1 class="header">Neon Maze</h1>
+        <span>Score: {{ this.solved }}</span>
+      </div>
       <div class="new-maze-background" @click="buildNewMaze">
         <div class="new-maze">
           <h4>New Maze</h4>
@@ -29,7 +32,8 @@ export default {
   data: function() {
     return {
       size: 25,
-      position: [0, 0]
+      position: [0, 0],
+      solved: 0
     };
   },
   mounted: function() {
@@ -61,9 +65,13 @@ export default {
     }
   },
   methods: {
-    buildNewMaze() {
+    buildNewMaze(event) {
       this.size += 1;
       this.size -= 1;
+
+      if (!event) {
+        this.solved += 1;
+      }
     },
     move(direction) {
       const [x, y] = this.position;
@@ -84,7 +92,11 @@ export default {
           break;
       }
 
-      this.position = position;
+      if (position[0] === this.size - 1 && position[1] === this.size - 1) {
+        this.buildNewMaze();
+      } else {
+        this.position = position;
+      }
     },
     handleMove({ direction }) {
       const DIRECTION_LEFT = 2;
@@ -128,9 +140,18 @@ body {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
+    flex-direction: column;
 
     & > * {
       margin: 5px;
+      width: calc(100% - 10px);
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .new-maze-background {
@@ -144,7 +165,6 @@ body {
         blue,
         violet
       );
-      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
